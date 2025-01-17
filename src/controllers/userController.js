@@ -12,7 +12,7 @@ dotenv.config();
 
 // register user
 const registrationUser = CatchAsyncError(async (req, res, next) => {
-  try {z
+  try {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
