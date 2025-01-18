@@ -10,10 +10,10 @@ const {
 
 const cartRouter = express.Router();
 
-cartRouter.post("/add", addToCart);
-cartRouter.get("/", getCart);
-cartRouter.put("/update", updateCartItem);
-cartRouter.delete("/remove/:productId", removeCartItem);
-cartRouter.delete("/clear", clearCart);
+cartRouter.post("/add", isAutheticated, addToCart);
+cartRouter.get("/", isAutheticated, getCart);
+cartRouter.put("/update", isAutheticated, updateCartItem);
+cartRouter.delete("/remove/:productId", isAutheticated, removeCartItem);
+cartRouter.delete("/clear", isAutheticated, clearCart);
 
 module.exports = cartRouter;
