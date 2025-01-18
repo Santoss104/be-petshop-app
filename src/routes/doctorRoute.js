@@ -2,6 +2,7 @@ const express = require("express");
 const { isAutheticated } = require("../middlewares/authMiddleware");
 const {
   createDoctor,
+  searchDoctors,
   getAllDoctors,
   getDoctor,
   updateDoctorProfile,
@@ -14,6 +15,7 @@ const doctorRouter = express.Router();
 
 doctorRouter.get("/", getAllDoctors);
 doctorRouter.get("/:id", getDoctor);
+doctorRouter.get("/search", searchDoctors); // Add this route
 doctorRouter.post("/create", isAutheticated, createDoctor);
 doctorRouter.put("/update/:id", isAutheticated, updateDoctorProfile);
 doctorRouter.put(
