@@ -8,6 +8,7 @@ const {
   getProduct,
   updateProduct,
   deleteProduct,
+  searchProducts,
 } = require("../controllers/productController");
 
 const productRouter = express.Router();
