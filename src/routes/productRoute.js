@@ -19,6 +19,7 @@ productRouter.post(
   isAutheticated,
   createProduct
 );
+productRouter.get("/products/search", searchProducts);
 productRouter
   .route("/:id")
   .put(isAutheticated, updateProduct)

@@ -210,10 +210,36 @@ const deleteProduct = CatchAsyncError(async (req, res, next) => {
   }
 });
 
+const searchProducts = CatchAsyncError(async (req, res, next) => {
+  try {
+    const { keyword } = req.query;
+
+    if (!keyword) {
+      return next(new ErrorHandler("Please enter a keyword", 400));
+    }
+
+    const products = await productModel
+      .find({
+        name: { $regex: keyword, $options: "i" }, // case insensitive search
+        isActive: true,
+      })
+      .populate("category", "name")
+      .select("name price images category stock");
+
+    res.status(200).json({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+  }
+});
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProduct,
   updateProduct,
   deleteProduct,
+  searchProducts,
 };
