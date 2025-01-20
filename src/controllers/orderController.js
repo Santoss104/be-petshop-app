@@ -5,7 +5,6 @@ const ErrorHandler = require("../utils/errorHandler");
 const { CatchAsyncError } = require("../middlewares/catchAsyncError");
 const { redis } = require("../utils/redis");
 const {
-  processOrder,
   getOrderById,
   getAllOrdersService,
 } = require("../services/orderService");

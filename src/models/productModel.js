@@ -152,6 +152,14 @@ productSchema.pre("save", function (next) {
   next();
 });
 
+productSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+    select: "name", // hanya ambil field name dari category
+  });
+  next();
+});
+
 // Methods
 productSchema.methods.updateStock = function (quantity) {
   this.stock += quantity;

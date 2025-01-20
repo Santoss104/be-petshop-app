@@ -5,7 +5,6 @@ const ErrorHandler = require("../utils/errorHandler");
 const { CatchAsyncError } = require("../middlewares/catchAsyncError");
 const {
   getPaymentById,
-  createPaymentService,
   getUserPaymentsService,
   updatePaymentCache,
 } = require("../services/paymentService");

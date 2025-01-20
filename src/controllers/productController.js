@@ -1,4 +1,5 @@
 const productModel = require("../models/productModel");
+const categoryModel = require("../models/categoryModel");
 const ErrorHandler = require("../utils/errorHandler");
 const { CatchAsyncError } = require("../middlewares/catchAsyncError");
 const cloudinary = require("cloudinary");
@@ -85,7 +86,20 @@ const getAllProducts = CatchAsyncError(async (req, res, next) => {
     const queryObject = { isActive };
 
     if (search) queryObject.search = search;
-    if (category) queryObject.category = category;
+    
+    // Modifikasi bagian category
+    if (category) {
+      const categoryDoc = await categoryModel.findOne({ 
+        name: { $regex: new RegExp(category, 'i') }
+      });
+      
+      if (!categoryDoc) {
+        return next(new ErrorHandler("Category not found", 404));
+      }
+      
+      queryObject.category = categoryDoc._id;
+    }
+
     if (minPrice || maxPrice) {
       queryObject.price = {};
       if (minPrice) queryObject.price.$gte = parseFloat(minPrice);

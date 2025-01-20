@@ -51,14 +51,19 @@ exports.getAllProductsService = async (
       });
       delete queryObject.search;
     }
+
     query.find(queryObject);
     query.sort(sortOptions);
     query.skip(skip).limit(limit);
+
+    // Pastikan populate category
     query.populate("category", "name");
+
     const [products, total] = await Promise.all([
       query.exec(),
       productModel.countDocuments(queryObject),
     ]);
+
     const currentPage = Math.floor(skip / limit) + 1;
     const totalPages = Math.ceil(total / limit);
     const hasMore = currentPage < totalPages;
