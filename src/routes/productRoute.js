@@ -13,6 +13,7 @@ const {
 
 const productRouter = express.Router();
 
+productRouter.get("/products/search", searchProducts);
 productRouter.get("/", getAllProducts);
 productRouter.get("/:id", getProduct);
 productRouter.post(
@@ -20,7 +21,6 @@ productRouter.post(
   isAutheticated,
   createProduct
 );
-productRouter.get("/products/search", searchProducts);
 productRouter
   .route("/:id")
   .put(isAutheticated, updateProduct)
