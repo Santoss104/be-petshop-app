@@ -13,6 +13,8 @@ const paymentRouter = require("./src/routes/paymentRoute");
 const doctorRouter = require("./src/routes/doctorRoute");
 const bookingRouter = require("./src/routes/bookingRoute");
 const chatRouter = require("./src/routes/chatRoute");
+const petRouter = require("./src/routes/petRoute");
+const appoinmentRouter = require("./src/routes/appointmentRoute");
 
 dotenv.config();
 
@@ -42,6 +44,8 @@ app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/bookings", bookingRouter);
 app.use("/api/v1/doctors", doctorRouter);
 app.use("/api/v1/chats", chatRouter);
+app.use("/api/v1/pets", petRouter);
+app.use("/api/v1/appoinments", appoinmentRouter);
 
 // testing api
 app.get("/test", (req, res) => {
