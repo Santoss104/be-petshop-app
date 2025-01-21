@@ -9,26 +9,22 @@ const {
   updatePaymentCache,
 } = require("../services/paymentService");
 
-// Process Payment
 const processPayment = CatchAsyncError(async (req, res, next) => {
   try {
     const { orderId, bookingId, cardNumber, cardName, expireDate, cvv } =
       req.body;
 
-    // Tentukan ID dan tipe reference berdasarkan input
     const referenceId = orderId || bookingId;
     let reference;
     let referenceType;
 
     if (bookingId) {
-      // Cek booking
       reference = await bookingModel.findOne({
         _id: bookingId,
         user: req.user._id,
       });
       referenceType = "booking";
     } else {
-      // Cek order
       reference = await orderModel.findOne({
         _id: orderId,
         user: req.user._id,
@@ -86,7 +82,6 @@ const processPayment = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get User's Payments
 const getUserPayments = CatchAsyncError(async (req, res, next) => {
   try {
     const {
@@ -118,7 +113,6 @@ const getUserPayments = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Single Payment
 const getPayment = CatchAsyncError(async (req, res, next) => {
   try {
     await getPaymentById(req.params.id, req.user, res);
@@ -127,7 +121,6 @@ const getPayment = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Cancel Payment
 const cancelPayment = CatchAsyncError(async (req, res, next) => {
   try {
     const payment = await paymentModel.findOne({

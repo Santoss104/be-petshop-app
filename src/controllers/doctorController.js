@@ -8,7 +8,6 @@ const {
   getAllDoctorsService,
 } = require("../services/doctorService");
 
-// Create doctor
 const createDoctor = CatchAsyncError(async (req, res, next) => {
   try {
     const {
@@ -31,7 +30,6 @@ const createDoctor = CatchAsyncError(async (req, res, next) => {
       return next(new ErrorHandler("Please enter all required fields", 400));
     }
 
-    // Validate workingHours if provided
     if (workingHours) {
       const validDays = [
         "Sunday",
@@ -57,7 +55,6 @@ const createDoctor = CatchAsyncError(async (req, res, next) => {
       }
     }
 
-    // Upload avatar if provided
     let avatarData = {};
     if (avatar) {
       const myCloud = await cloudinary.v2.uploader.upload(avatar, {
@@ -111,7 +108,6 @@ const createDoctor = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get All Doctors - Public route, no token needed
 const getAllDoctors = CatchAsyncError(async (req, res, next) => {
   try {
     const {
@@ -151,7 +147,6 @@ const getAllDoctors = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Single Doctor - Public route, no token needed
 const getDoctor = CatchAsyncError(async (req, res, next) => {
   try {
     const doctorId = req.params.id;
@@ -163,7 +158,6 @@ const getDoctor = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Update Doctor Profile
 const updateDoctorProfile = CatchAsyncError(async (req, res, next) => {
   try {
     const { avatar, workingHours, ...updateData } = req.body;
@@ -211,7 +205,6 @@ const updateDoctorProfile = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Update Working Hours
 const updateWorkingHours = CatchAsyncError(async (req, res, next) => {
   try {
     const doctorId = req.params.id;
@@ -257,7 +250,6 @@ const updateWorkingHours = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Toggle Online Status
 const toggleOnlineStatus = CatchAsyncError(async (req, res, next) => {
   try {
     const doctorId = req.params.id;
@@ -280,7 +272,6 @@ const toggleOnlineStatus = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Delete Doctor
 const deleteDoctor = CatchAsyncError(async (req, res, next) => {
   try {
     const doctor = await doctorModel.findById(req.params.id);
@@ -305,7 +296,6 @@ const deleteDoctor = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Di doctorController.js
 const searchDoctors = CatchAsyncError(async (req, res, next) => {
   try {
     const { query } = req.query;

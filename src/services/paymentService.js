@@ -4,7 +4,6 @@ const orderModel = require("../models/orderModel");
 const bookingModel = require("../models/bookingModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-// Get payment by id
 exports.getPaymentById = async (id, user, res) => {
   try {
     const cachedPayment = await redis.get(`payment:${id}`);
@@ -49,7 +48,6 @@ exports.getPaymentById = async (id, user, res) => {
   }
 };
 
-// Update payment cache
 exports.updatePaymentCache = async (payment) => {
   try {
     await redis.set(`payment:${payment._id}`, JSON.stringify(payment));
@@ -58,7 +56,6 @@ exports.updatePaymentCache = async (payment) => {
   }
 };
 
-// Get user payments
 exports.getUserPaymentsService = async (
   userId,
   queryObject = {},

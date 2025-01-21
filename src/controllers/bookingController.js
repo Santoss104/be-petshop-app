@@ -9,7 +9,6 @@ const {
   getAllBookingsService,
 } = require("../services/bookingService");
 
-// Create Booking
 const createBooking = CatchAsyncError(async (req, res, next) => {
   try {
     const { doctorId, appointmentDate, appointmentTime, consultationType } =
@@ -43,7 +42,6 @@ const createBooking = CatchAsyncError(async (req, res, next) => {
     const adminFee = 1000;
     const total = subtotal + adminFee;
 
-    // Buat booking tanpa payment terlebih dahulu
     let booking = await bookingModel.create({
       user: req.user._id,
       doctor: doctorId,
@@ -71,7 +69,6 @@ const createBooking = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get User's Bookings
 const getUserBookings = CatchAsyncError(async (req, res, next) => {
   try {
     const userId = req.user._id;
@@ -90,7 +87,6 @@ const getUserBookings = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Doctor's Bookings
 const getDoctorBookings = CatchAsyncError(async (req, res, next) => {
   try {
     const doctorId = req.params.doctorId;
@@ -109,7 +105,6 @@ const getDoctorBookings = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Single Booking
 const getBooking = CatchAsyncError(async (req, res, next) => {
   try {
     const bookingId = req.params.id;
@@ -119,7 +114,6 @@ const getBooking = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Cancel Booking
 const cancelBooking = CatchAsyncError(async (req, res, next) => {
   try {
     const booking = await bookingModel.findById(req.params.id);
@@ -159,7 +153,6 @@ const cancelBooking = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get all bookings
 const getAllBookings = CatchAsyncError(async (req, res, next) => {
   try {
     await getAllBookingsService(req.user, res);
@@ -168,7 +161,6 @@ const getAllBookings = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get upcoming appointments
 const getUpcomingAppointments = CatchAsyncError(async (req, res, next) => {
   try {
     const now = new Date();

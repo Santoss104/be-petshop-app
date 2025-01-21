@@ -1,7 +1,6 @@
 const { redis } = require("../utils/redis");
 const doctorModel = require("../models/doctorModel");
 
-// Get doctor by id
 exports.getDoctorById = async (id, res) => {
   const doctorJson = await redis.get(id);
 
@@ -14,7 +13,6 @@ exports.getDoctorById = async (id, res) => {
   }
 };
 
-// Get all doctors
 exports.getAllDoctorsService = async (res) => {
   const doctors = await doctorModel.find().sort({ createdAt: -1 });
 

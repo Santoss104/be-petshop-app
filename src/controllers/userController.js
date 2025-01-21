@@ -10,7 +10,6 @@ const { getAllUsersService, getUserById } = require("../services/userService");
 
 dotenv.config();
 
-// register user
 const registrationUser = CatchAsyncError(async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -49,7 +48,6 @@ const registrationUser = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Personal data
 const updatePersonalData = CatchAsyncError(async (req, res, next) => {
   try {
     const { phone, birthDate, gender } = req.body;
@@ -81,7 +79,6 @@ const updatePersonalData = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// login user
 const loginUser = CatchAsyncError(async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -109,7 +106,6 @@ const loginUser = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// logout user
 const logoutUser = CatchAsyncError(async (req, res, next) => {
   try {
     res.cookie("access_token", "", { maxAge: 1 });
@@ -129,7 +125,6 @@ const logoutUser = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// get user info
 const getUserInfo = CatchAsyncError(async (req, res, next) => {
   try {
     const userId = req.user?._id;
@@ -139,7 +134,6 @@ const getUserInfo = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// social auth
 const socialAuth = CatchAsyncError(async (req, res, next) => {
   try {
     const { email, name, avatar } = req.body;
@@ -155,7 +149,6 @@ const socialAuth = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// update user password
 const updatePassword = CatchAsyncError(async (req, res, next) => {
   try {
     const { oldPassword, newPassword } = req.body;
@@ -191,7 +184,6 @@ const updatePassword = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// update user info
 const updateUserName = CatchAsyncError(async (req, res, next) => {
   try {
     const { name } = req.body;
@@ -215,7 +207,6 @@ const updateUserName = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// update profile picture
 const updateProfileAvatar = CatchAsyncError(async (req, res, next) => {
   try {
     const { avatar } = req.body;
@@ -259,7 +250,6 @@ const updateProfileAvatar = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// update access token
 const updateAccessToken = CatchAsyncError(async (req, res, next) => {
   try {
     const refresh_token = req.headers["refresh-token"];
@@ -288,7 +278,6 @@ const updateAccessToken = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// get all users
 const getAllUsers = CatchAsyncError(async (req, res, next) => {
   try {
     getAllUsersService(res);

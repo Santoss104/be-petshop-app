@@ -9,7 +9,6 @@ const {
   updateCartCache,
 } = require("../services/cartService");
 
-// Add to Cart
 const addToCart = CatchAsyncError(async (req, res, next) => {
   try {
     const { productId, quantity = 1 } = req.body;
@@ -55,7 +54,6 @@ const addToCart = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Cart
 const getCart = CatchAsyncError(async (req, res, next) => {
   try {
     const summary = await getCartSummaryService(req.user._id);
@@ -69,7 +67,6 @@ const getCart = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Update Cart Item
 const updateCartItem = CatchAsyncError(async (req, res, next) => {
   try {
     const { productId, quantity } = req.body;
@@ -122,7 +119,6 @@ const updateCartItem = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Remove Cart Item
 const removeCartItem = CatchAsyncError(async (req, res, next) => {
   try {
     const { productId } = req.params;
@@ -151,7 +147,6 @@ const removeCartItem = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Clear Cart
 const clearCart = CatchAsyncError(async (req, res, next) => {
   try {
     const cart = await cartModel.findOne({ user: req.user._id });

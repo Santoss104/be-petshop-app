@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const { redis } = require("../utils/redis");
 const { updateAccessToken } = require("../controllers/userController");
 
-// authenticated user
 exports.isAutheticated = CatchAsyncError(async (req, res, next) => {
   const access_token = req.headers["access-token"] || req.cookies.access_token;
 

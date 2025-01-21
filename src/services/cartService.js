@@ -3,7 +3,6 @@ const cartModel = require("../models/cartModel");
 const productModel = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-// Get cart by user id
 exports.getCartByUserId = async (userId) => {
   try {
     const cachedCart = await redis.get(`cart:${userId}`);
@@ -26,7 +25,6 @@ exports.getCartByUserId = async (userId) => {
   }
 };
 
-// Get cart summary with shipping calculation
 exports.getCartSummaryService = async (userId) => {
   try {
     const cart = await cartModel
@@ -63,7 +61,6 @@ exports.getCartSummaryService = async (userId) => {
   }
 };
 
-// Validate cart items stock
 exports.validateCartStock = async (cart) => {
   try {
     for (const item of cart.items) {
@@ -87,7 +84,6 @@ exports.validateCartStock = async (cart) => {
   }
 };
 
-// Update cart in cache
 exports.updateCartCache = async (cart) => {
   try {
     await redis.set(`cart:${cart.user}`, JSON.stringify(cart));

@@ -1,7 +1,6 @@
 const { redis } = require("../utils/redis");
 const bookingModel = require("../models/bookingModel");
 
-// Get booking by id
 exports.getBookingById = async (id, res) => {
   const bookingJson = await redis.get(id);
 
@@ -14,7 +13,6 @@ exports.getBookingById = async (id, res) => {
   }
 };
 
-// Get all bookings
 exports.getAllBookingsService = async (res) => {
   const bookings = await bookingModel
     .find()

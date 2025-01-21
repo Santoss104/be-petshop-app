@@ -10,7 +10,6 @@ const {
   clearProductCache,
 } = require("../services/productService");
 
-// Create Product
 const createProduct = CatchAsyncError(async (req, res, next) => {
   try {
     const {
@@ -68,7 +67,6 @@ const createProduct = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get All Products
 const getAllProducts = CatchAsyncError(async (req, res, next) => {
   try {
     const {
@@ -87,7 +85,6 @@ const getAllProducts = CatchAsyncError(async (req, res, next) => {
 
     if (search) queryObject.search = search;
     
-    // Modifikasi bagian category
     if (category) {
       const categoryDoc = await categoryModel.findOne({ 
         name: { $regex: new RegExp(category, 'i') }
@@ -125,7 +122,6 @@ const getAllProducts = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Single Product
 const getProduct = CatchAsyncError(async (req, res, next) => {
   try {
     await getProductById(req.params.id, res);
@@ -134,7 +130,6 @@ const getProduct = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Update Product
 const updateProduct = CatchAsyncError(async (req, res, next) => {
   try {
     let product = await productModel.findById(req.params.id);
@@ -186,7 +181,6 @@ const updateProduct = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Delete Product
 const deleteProduct = CatchAsyncError(async (req, res, next) => {
   try {
     const product = await productModel.findById(req.params.id);
@@ -220,7 +214,7 @@ const searchProducts = CatchAsyncError(async (req, res, next) => {
 
     const products = await productModel
       .find({
-        name: { $regex: keyword, $options: "i" }, // case insensitive search
+        name: { $regex: keyword, $options: "i" },
         isActive: true,
       })
       .populate("category", "name")

@@ -9,7 +9,6 @@ const {
   getAllOrdersService,
 } = require("../services/orderService");
 
-// Create Order
 const createOrder = CatchAsyncError(async (req, res, next) => {
   try {
     const { shippingAddress, shippingMethod } = req.body;
@@ -114,7 +113,6 @@ const confirmOrderReceived = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get User Orders
 const getUserOrders = CatchAsyncError(async (req, res, next) => {
   try {
     const { page = 1, limit = 10, sort = "-createdAt" } = req.query;
@@ -126,7 +124,6 @@ const getUserOrders = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Single Order
 const getOrder = CatchAsyncError(async (req, res, next) => {
   try {
     await getOrderById(req.params.id, req.user, res);
@@ -135,7 +132,6 @@ const getOrder = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Cancel Order
 const cancelOrder = CatchAsyncError(async (req, res, next) => {
   try {
     const order = await orderModel.findOne({

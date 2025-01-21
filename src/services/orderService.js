@@ -2,7 +2,6 @@ const { redis } = require("../utils/redis");
 const orderModel = require("../models/orderModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-// Get order by id
 exports.getOrderById = async (orderId, user, res) => {
   try {
     const cachedOrder = await redis.get(orderId);
@@ -41,7 +40,6 @@ exports.getOrderById = async (orderId, user, res) => {
   }
 };
 
-// Get user orders with filtering and pagination
 exports.getAllOrdersService = async (
   res,
   user,

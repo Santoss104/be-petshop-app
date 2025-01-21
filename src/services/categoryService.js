@@ -1,7 +1,6 @@
 const { redis } = require("../utils/redis");
 const categoryModel = require("../models/categoryModel");
 
-// Get category by id
 exports.getCategoryById = async (id, res) => {
   const categoryJson = await redis.get(id);
 
@@ -14,7 +13,6 @@ exports.getCategoryById = async (id, res) => {
   }
 };
 
-// Get all categories
 exports.getAllCategoriesService = async (res) => {
   const categories = await categoryModel
     .find({ isActive: true })

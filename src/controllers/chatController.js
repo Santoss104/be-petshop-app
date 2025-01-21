@@ -4,7 +4,6 @@ const ErrorHandler = require("../utils/errorHandler");
 const { CatchAsyncError } = require("../middlewares/catchAsyncError");
 const { redis } = require("../utils/redis");
 
-// Inisialisasi chat ketika booking dikonfirmasi
 const initializeChat = CatchAsyncError(async (req, res, next) => {
   try {
     const { bookingId } = req.body;
@@ -14,7 +13,6 @@ const initializeChat = CatchAsyncError(async (req, res, next) => {
       return next(new ErrorHandler("Booking not found", 404));
     }
 
-    // Cek apakah chat sudah ada
     let chat = await chatModel.findOne({ booking: bookingId });
     if (chat) {
       return next(new ErrorHandler("Chat already exists", 400));
@@ -37,7 +35,6 @@ const initializeChat = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Kirim pesan
 const sendMessage = CatchAsyncError(async (req, res, next) => {
   try {
     const { chatId } = req.params;
@@ -48,7 +45,6 @@ const sendMessage = CatchAsyncError(async (req, res, next) => {
       return next(new ErrorHandler("Chat not found", 404));
     }
 
-    // Tentukan pengirim (user atau doctor)
     const senderModel = req.user.role === "doctor" ? "Doctor" : "User";
 
     const message = {
@@ -72,7 +68,6 @@ const sendMessage = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Ambil riwayat chat
 const getChatHistory = CatchAsyncError(async (req, res, next) => {
   try {
     const { chatId } = req.params;
@@ -87,7 +82,6 @@ const getChatHistory = CatchAsyncError(async (req, res, next) => {
       return next(new ErrorHandler("Chat not found", 404));
     }
 
-    // Verifikasi akses
     const isAuthorized =
       chat.user._id.toString() === req.user._id.toString() ||
       chat.doctor._id.toString() === req.user._id.toString();
@@ -105,7 +99,6 @@ const getChatHistory = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Tandai pesan sebagai dibaca
 const markMessagesAsRead = CatchAsyncError(async (req, res, next) => {
   try {
     const { chatId } = req.params;
@@ -115,7 +108,6 @@ const markMessagesAsRead = CatchAsyncError(async (req, res, next) => {
       return next(new ErrorHandler("Chat not found", 404));
     }
 
-    // Update status pesan yang belum dibaca
     chat.messages.forEach((message) => {
       if (message.sender.toString() !== req.user._id.toString()) {
         message.readStatus = true;

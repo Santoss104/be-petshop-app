@@ -71,7 +71,6 @@ const productSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    // Tambahan field
     slug: {
       type: String,
       unique: true,
@@ -124,7 +123,6 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-// Virtual fields
 productSchema.virtual("inStock").get(function () {
   return this.stock > 0;
 });
@@ -155,12 +153,11 @@ productSchema.pre("save", function (next) {
 productSchema.pre(/^find/, function (next) {
   this.populate({
     path: "category",
-    select: "name", // hanya ambil field name dari category
+    select: "name",
   });
   next();
 });
 
-// Methods
 productSchema.methods.updateStock = function (quantity) {
   this.stock += quantity;
   return this.save();

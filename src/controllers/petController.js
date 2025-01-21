@@ -66,7 +66,6 @@ const createPet = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get All Pets
 const getAllPets = CatchAsyncError(async (req, res, next) => {
   try {
     const {
@@ -109,7 +108,6 @@ const getAllPets = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Pet Detail
 const getPetDetail = CatchAsyncError(async (req, res, next) => {
   try {
     const petId = req.params.id;
@@ -141,21 +139,18 @@ const getPetDetail = CatchAsyncError(async (req, res, next) => {
 
 const getPetsByCategory = CatchAsyncError(async (req, res, next) => {
   try {
-    const { type } = req.params; // 'Cat' atau 'Dog'
+    const { type } = req.params;
     const { page = 1, limit = 12 } = req.query;
 
-    // Validasi type
     if (!["Cat", "Dog"].includes(type)) {
       return next(new ErrorHandler("Invalid pet type", 400));
     }
 
-    // Hitung total documents untuk kategori tersebut
     const totalPets = await petModel.countDocuments({
       status: "Available",
       type: type,
     });
 
-    // Ambil data pet sesuai kategori
     const pets = await petModel
       .find({
         status: "Available",
@@ -165,7 +160,6 @@ const getPetsByCategory = CatchAsyncError(async (req, res, next) => {
       .skip((page - 1) * limit)
       .limit(limit);
 
-    // Hitung total halaman
     const totalPages = Math.ceil(totalPets / limit);
 
     res.status(200).json({
@@ -183,10 +177,8 @@ const getPetsByCategory = CatchAsyncError(async (req, res, next) => {
   }
 });
 
-// Get Pet Categories Count
 const getPetCategories = CatchAsyncError(async (req, res, next) => {
   try {
-    // Menggunakan find dan count langsung
     const cats = await petModel.countDocuments({
       status: "Available",
       type: "Cat",

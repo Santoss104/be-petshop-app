@@ -62,7 +62,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash Password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -71,21 +70,18 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// sign access token
 userSchema.methods.SignAccessToken = function () {
   return jwt.sign({ id: this._id }, process.env.ACCESS_TOKEN || "", {
     expiresIn: "1h",
   });
 };
 
-// sign refresh token
 userSchema.methods.SignRefreshToken = function () {
   return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN || "", {
     expiresIn: "3d",
   });
 };
 
-// compare password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

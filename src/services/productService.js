@@ -2,7 +2,6 @@ const { redis } = require("../utils/redis");
 const productModel = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-// Get product by id
 exports.getProductById = async (id, res) => {
   try {
     const cachedProduct = await redis.get(`product:${id}`);
@@ -34,7 +33,6 @@ exports.getProductById = async (id, res) => {
   }
 };
 
-// Get all products with advanced filtering
 exports.getAllProductsService = async (
   res,
   queryObject,
@@ -56,7 +54,6 @@ exports.getAllProductsService = async (
     query.sort(sortOptions);
     query.skip(skip).limit(limit);
 
-    // Pastikan populate category
     query.populate("category", "name");
 
     const [products, total] = await Promise.all([

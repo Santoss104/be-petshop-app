@@ -13,7 +13,6 @@ const {
 
 const bookingRouter = express.Router();
 
-// Booking routes
 bookingRouter.post("/create", isAutheticated, createBooking);
 bookingRouter.get("/user", isAutheticated, getUserBookings);
 bookingRouter.get("/doctor/:doctorId", isAutheticated, getDoctorBookings);

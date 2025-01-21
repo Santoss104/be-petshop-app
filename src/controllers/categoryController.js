@@ -3,7 +3,6 @@ const ErrorHandler = require("../utils/errorHandler");
 const { CatchAsyncError } = require("../middlewares/catchAsyncError");
 const { redis } = require("../utils/redis");
 
-// Create category
 const createCategory = CatchAsyncError(async (req, res, next) => {
   const { name } = req.body;
 
@@ -28,7 +27,6 @@ const createCategory = CatchAsyncError(async (req, res, next) => {
   });
 });
 
-// Get all categories
 const getAllCategories = CatchAsyncError(async (req, res, next) => {
   const categories = await categoryModel.find().sort({ createdAt: -1 });
 
@@ -38,7 +36,6 @@ const getAllCategories = CatchAsyncError(async (req, res, next) => {
   });
 });
 
-// Get category by ID
 const getCategory = CatchAsyncError(async (req, res, next) => {
   const category = await categoryModel.findById(req.params.id);
 
@@ -52,7 +49,6 @@ const getCategory = CatchAsyncError(async (req, res, next) => {
   });
 });
 
-// Update category
 const updateCategory = CatchAsyncError(async (req, res, next) => {
   const { name } = req.body;
   const categoryId = req.params.id;
@@ -85,7 +81,6 @@ const updateCategory = CatchAsyncError(async (req, res, next) => {
   });
 });
 
-// Delete category
 const deleteCategory = CatchAsyncError(async (req, res, next) => {
   const category = await categoryModel.findById(req.params.id);
   if (!category) {

@@ -26,7 +26,7 @@ app.use(express.json({ limit: "50mb" }));
 // cookie parser
 app.use(cookieParser());
 
-// Konfigurasi CORS
+// CORS
 const corsOptions = {
   origin: process.env.FRONTEND_URI || "http://localhost:19000",
   credentials: true,
