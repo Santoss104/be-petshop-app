@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const priceRegexPattern = /^\d+(\.\d{1,2})?$/;
+const priceRegexPattern = /^\d{1,12}(\.\d{1,2})?$/;
 
 const productSchema = new mongoose.Schema(
   {
@@ -20,9 +20,9 @@ const productSchema = new mongoose.Schema(
       required: [true, "Please enter product price"],
       validate: {
         validator: function (value) {
-          return value > 0 && priceRegexPattern.test(value.toString());
+          return value >= 100 && priceRegexPattern.test(value.toString());
         },
-        message: "Please enter a valid price",
+        message: "Price must be at least Rp 100",
       },
       index: true,
     },
